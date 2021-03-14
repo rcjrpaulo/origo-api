@@ -24,7 +24,7 @@ class UpdateClienteRequest extends FormRequest
     public function rules()
     {
         return [
-            'planos' => ['required', 'array'],
+            'planos' => ['array'],
             'nome' => ['required', 'string'],
             'email' => ['required', 'email', 'unique:clientes'],
             'telefone' => ['required', 'string'],
