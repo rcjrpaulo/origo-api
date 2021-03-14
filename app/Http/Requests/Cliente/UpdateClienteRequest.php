@@ -25,12 +25,12 @@ class UpdateClienteRequest extends FormRequest
     {
         return [
             'planos' => ['array'],
-            'nome' => ['required', 'string'],
-            'email' => ['required', 'email', 'unique:clientes'],
-            'telefone' => ['required', 'string'],
-            'estado' => ['required', 'string'],
-            'cidade' => ['required', 'string'],
-            'data_de_nascimento' => ['required'],
+            'nome' => ['string'],
+            'email' => ['email', 'unique:clientes'],
+            'telefone' => ['string'],
+            'estado' => ['string'],
+            'cidade' => ['string'],
+            'data_de_nascimento' => ['string'],
         ];
     }
 }
