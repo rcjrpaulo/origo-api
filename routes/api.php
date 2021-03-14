@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\api\v1\ClienteController;
-use Illuminate\Support\Facades\Route;
+    use App\Http\Controllers\api\v1\PlanoController;
+    use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\AuthController;
 
 /*
@@ -43,5 +44,9 @@ Route::group(['prefix' => 'v1'], function () {
          * Cliente Routes
          * */
         Route::apiResource('clientes', ClienteController::class);
+        /*
+         * Plano Routes
+         * */
+        Route::apiResource('planos', PlanoController::class)->only('index');
     });
 });
