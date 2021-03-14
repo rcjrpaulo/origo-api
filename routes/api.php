@@ -25,6 +25,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function () {
         Route::group(['middleware' => 'auth:sanctum'], function () {
             Route::get('/user', [AuthController::class, 'user'])
                 ->name('user');
+
+            Route::post('/logout', [AuthController::class, 'logout'])
+                ->name('logout');
+
+            Route::post('/logout-all-devices', [AuthController::class, 'logoutAllDevices'])
+                ->name('logoutAllDevices');
         });
     });
 });
