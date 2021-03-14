@@ -28,7 +28,7 @@ class Cliente extends Model
 
     public function planoFree()
     {
-        return $this->belongsToMany(Plano::class, 'cliente_plano');
+        return $this->belongsToMany(Plano::class, 'cliente_plano')->where('nome', '=', 'Free');
     }
 
     public function getCannotDeleteAttribute()
