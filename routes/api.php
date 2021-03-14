@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\v1\ClienteController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\AuthController;
 
@@ -14,8 +15,11 @@ use App\Http\Controllers\api\v1\AuthController;
 |
 */
 
-Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function () {
-    Route::group(['prefix' => 'auth'], function () {
+Route::group(['prefix' => 'v1'], function () {
+    /*
+     * Authentication Routes
+     * */
+    Route::group(['prefix' => 'auth', 'namespace' => 'v1'], function () {
         Route::post('/register', [AuthController::class, 'register'])
             ->name('register');
 
@@ -32,5 +36,12 @@ Route::group(['prefix' => 'v1', 'namespace' => 'v1'], function () {
             Route::post('/logout-all-devices', [AuthController::class, 'logoutAllDevices'])
                 ->name('logoutAllDevices');
         });
+    });
+
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        /*
+         * Cliente Routes
+         * */
+        Route::apiResource('clientes', ClienteController::class);
     });
 });
