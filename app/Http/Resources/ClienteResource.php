@@ -21,7 +21,7 @@ class ClienteResource extends JsonResource
             'telefone' => $this->telefone,
             'estado' => $this->estado,
             'cidade' => $this->cidade,
-            'data_de_nascimento' => $this->data_de_nascimento,
+            'data_de_nascimento' => $this->data_de_nascimento->format('Y-m-d'),
             'planos' => $this->planos,
         ];
     }
