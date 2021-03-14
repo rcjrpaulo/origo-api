@@ -19,4 +19,9 @@ class Cliente extends Model
     ];
 
     protected $dates = ['data_de_nascimento'];
+
+    public function planos()
+    {
+        return $this->belongsToMany(Plano::class, 'cliente_plano');
+    }
 }

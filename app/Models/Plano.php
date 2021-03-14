@@ -13,4 +13,9 @@ class Plano extends Model
         'nome',
         'valor_mensal'
     ];
+
+    public function clientes()
+    {
+        return $this->belongsToMany(Cliente::class, 'cliente_plano');
+    }
 }
