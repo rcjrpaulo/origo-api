@@ -15,10 +15,25 @@ class ClienteCollection extends ResourceCollection
     public function toArray($request)
     {
         return [
-            'data' => $this->collection,
+            'data' => [
+                $this->collection->map(function ($collection) {
+                    return [
+                        'id' => $collection->id,
+                        'nome' => $collection->nome,
+                        'email' => $collection->email,
+                        'telefone' => $collection->telefone,
+                        'estado' => $collection->estado,
+                        'cidade' => $collection->cidade,
+                        'data_de_nascimento' => $collection->data_de_nascimento->format('Y-m-d'),
+                        'canDelete' => !$collection->cannotDelete,
+                        'planos' => $collection->planos,
+                    ];
+                })
+            ],
             'links' => [
                 'self' => 'link-value',
             ],
         ];
     }
+
 }
