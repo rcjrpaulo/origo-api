@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cliente\StoreClienteRequest;
 use App\Http\Requests\Cliente\UpdateClienteRequest;
+use App\Http\Resources\ClienteCollection;
 use App\Http\Resources\ClienteResource;
 use App\Models\Cliente;
 
@@ -12,7 +13,7 @@ class ClienteController extends Controller
 {
     public function index()
     {
-        return response()->json(Cliente::all());
+        return new ClienteCollection(Cliente::paginate(30));
     }
 
     public function store(StoreClienteRequest $request)
