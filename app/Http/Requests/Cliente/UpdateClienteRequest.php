@@ -26,7 +26,7 @@ class UpdateClienteRequest extends FormRequest
         return [
             'planos' => ['array'],
             'nome' => ['string'],
-            'email' => ['email', 'unique:clientes'],
+            'email' => ['email'],
             'telefone' => ['string'],
             'estado' => ['string'],
             'cidade' => ['string'],
