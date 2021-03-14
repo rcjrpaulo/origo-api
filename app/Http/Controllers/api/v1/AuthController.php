@@ -29,11 +29,11 @@ class AuthController extends Controller
             $user = User::where('email', $request->email)->first();
             $token = $user->createToken('token-name');
 
-            return response()->json(['token' => $token->plainTextToken, 'user' => $user], 200);
+            return response()->json(['token' => $token->plainTextToken], 200);
         }
 
         throw ValidationException::withMessages([
-            'email' => ['As credenciais enviadas estão incorretas.']
+            'email' => ['The credentials sent are incorrect.']
         ]);
     }
 
