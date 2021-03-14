@@ -3,63 +3,49 @@
 namespace App\Http\Controllers\api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Cliente\StoreClienteRequest;
+use App\Http\Requests\Cliente\UpdateClienteRequest;
 use App\Models\Cliente;
-use Illuminate\Http\Request;
 
 class ClienteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        return response()->json(Cliente::all());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store(StoreClienteRequest $request)
     {
-        //
+        $cliente = Cliente::create($request->validated());
+
+        $cliente->planos()->sync($request->planos ?? []);
+
+        return response()->json($cliente);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Cliente  $cliente
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Cliente $cliente)
     {
-        //
+        return response()->json($cliente);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cliente  $cliente
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Cliente $cliente)
+    public function update(UpdateClienteRequest $request, Cliente $cliente)
     {
-        //
+        $cliente->update($request->validated());
+
+        $cliente->planos()->sync($request->planos ?? []);
+
+        return response()->json($cliente);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Cliente  $cliente
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Cliente $cliente)
     {
-        //
+        if ($cliente->cannotDelete) {
+            return response()->json('Impossible to delete client with Free plan from SP State.', 403);
+        }
+
+        $cliente->delete();
+
+        return response()->json(null, 204);
     }
 }

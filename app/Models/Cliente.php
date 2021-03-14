@@ -25,4 +25,18 @@ class Cliente extends Model
     {
         return $this->belongsToMany(Plano::class, 'cliente_plano');
     }
+
+    public function planoFree()
+    {
+        return $this->belongsToMany(Plano::class, 'cliente_plano');
+    }
+
+    public function getCannotDeleteAttribute()
+    {
+        if ($this->estado == 'São Paulo' && $this->planoFree()->exists()) {
+            return true;
+        }
+
+        return false;
+    }
 }
