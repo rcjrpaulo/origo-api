@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Cliente\StoreClienteRequest;
 use App\Http\Requests\Cliente\UpdateClienteRequest;
+use App\Http\Resources\ClienteResource;
 use App\Models\Cliente;
 
 class ClienteController extends Controller
@@ -26,7 +27,7 @@ class ClienteController extends Controller
 
     public function show(Cliente $cliente)
     {
-        return response()->json($cliente);
+        return new ClienteResource($cliente->load('planos'));
     }
 
     public function update(UpdateClienteRequest $request, Cliente $cliente)
