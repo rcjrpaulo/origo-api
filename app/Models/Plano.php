@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Plano extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'nome',
+        'valor_mensal'
+    ];
 }
