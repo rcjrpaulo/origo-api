@@ -57,6 +57,7 @@ class Handler extends ExceptionHandler
                 $statusCode = method_exists($e, 'getCode') && !empty($e->getCode()) ? $e->getCode() : 500;
                 $statusCode = method_exists($e, 'getStatusCode') && !empty($e->getStatusCode()) ? $e->getStatusCode() : $statusCode;
                 $statusCode = !empty($e->status) ? $e->status : $statusCode;
+                $statusCode = $statusCode > 500 ? 500 : $statusCode;
 
                 return response()->json(['errors' => [$e->getMessage()]], $statusCode);
             }
