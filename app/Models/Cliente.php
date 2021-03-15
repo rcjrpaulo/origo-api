@@ -31,12 +31,12 @@ class Cliente extends Model
         return $this->belongsToMany(Plano::class, 'cliente_plano')->where('nome', '=', 'Free');
     }
 
-    public function getCannotDeleteAttribute()
+    public function getPodeDeletarAttribute()
     {
         if ($this->estado == 'São Paulo' && $this->planoFree()->exists()) {
-            return true;
+            return false;
         }
 
-        return false;
+        return true;
     }
 }

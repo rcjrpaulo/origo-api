@@ -24,7 +24,7 @@ class ClienteCollection extends ResourceCollection
                     'estado' => $collection->estado,
                     'cidade' => $collection->cidade,
                     'data_de_nascimento' => $collection->data_de_nascimento->format('Y-m-d'),
-                    'can_be_deleted' => !$collection->cannotDelete,
+                    'pode_deletar' => $collection->podeDeletar,
                     'planos' => $collection->planos,
                 ];
             }),
