@@ -43,7 +43,7 @@ class ClienteController extends Controller
     public function destroy(Cliente $cliente)
     {
         if (!$cliente->podeDeletar) {
-            return response()->json('Impossible to delete client with Free plan from SP State.', 403);
+            return response()->json(['errors' => ['Impossível deletar um cliente de plano Free do estado de São Paulo']], 403);
         }
 
         $cliente->delete();
