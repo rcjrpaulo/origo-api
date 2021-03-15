@@ -39,18 +39,26 @@ class Handler extends ExceptionHandler
         $this->renderable(function (\Exception $e, $request) {
             if ($request->is("api/*")) {
                 if ($e instanceof ValidationException) {
-                    return response()->json($e->errors(), $e->status);
+                    $errors = [];
+                    foreach ($e->errors() as $error) {
+                        if (empty($error[0])) {
+                            continue;
+                        }
+
+                        $errors[] = $error[0];
+                    }
+                    return response()->json(['errors' => $errors], $e->status);
                 }
 
                 if ($e instanceof AuthenticationException) {
-                    return response()->json($e->getMessage(), 401);
+                    return response()->json(['errors' => [$e->getMessage()]], 401);
                 }
 
                 $statusCode = method_exists($e, 'getCode') && !empty($e->getCode()) ? $e->getCode() : 500;
                 $statusCode = method_exists($e, 'getStatusCode') && !empty($e->getStatusCode()) ? $e->getStatusCode() : $statusCode;
                 $statusCode = !empty($e->status) ? $e->status : $statusCode;
 
-                return response()->json($e->getMessage(), $statusCode);
+                return response()->json(['errors' => [$e->getMessage()]], $statusCode);
             }
         });
 

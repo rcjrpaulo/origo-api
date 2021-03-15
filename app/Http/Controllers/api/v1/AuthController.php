@@ -33,7 +33,7 @@ class AuthController extends Controller
         }
 
         throw ValidationException::withMessages([
-            'email' => ['The credentials sent are incorrect.']
+            'errors' => ['The credentials sent are incorrect.']
         ]);
     }
 
