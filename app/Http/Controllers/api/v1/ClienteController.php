@@ -13,7 +13,7 @@ class ClienteController extends Controller
 {
     public function index()
     {
-        return new ClienteCollection(Cliente::paginate(30));
+        return new ClienteCollection(Cliente::with('planos')->paginate(30));
     }
 
     public function store(StoreClienteRequest $request)
