@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\api\v1\ClienteController;
-    use App\Http\Controllers\api\v1\PlanoController;
-    use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\api\v1\PlanoController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\AuthController;
 
 /*
@@ -20,7 +20,7 @@ Route::group(['prefix' => 'v1'], function () {
     /*
      * Authentication Routes
      * */
-    Route::group(['prefix' => 'auth', 'namespace' => 'v1'], function () {
+    Route::group(['prefix' => 'auth'], function () {
         Route::post('/register', [AuthController::class, 'register'])
             ->name('register');
 
@@ -44,6 +44,7 @@ Route::group(['prefix' => 'v1'], function () {
          * Cliente Routes
          * */
         Route::apiResource('clientes', ClienteController::class);
+
         /*
          * Plano Routes
          * */
