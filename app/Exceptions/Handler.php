@@ -39,19 +39,19 @@ class Handler extends ExceptionHandler
         $this->renderable(function (\Exception $e, $request) {
             if ($request->is("api/*")) {
                 if ($e instanceof ValidationException) {
-                    $errors = [];
+                    $errors = "";
                     foreach ($e->errors() as $error) {
                         if (empty($error[0])) {
                             continue;
                         }
 
-                        $errors[] = $error[0];
+                        $errors .= "{$error[0]} ";
                     }
-                    return response()->json(['errors' => $errors], $e->status);
+                    return response()->json(['error' => $errors], $e->status);
                 }
 
                 if ($e instanceof AuthenticationException) {
-                    return response()->json(['errors' => [$e->getMessage()]], 401);
+                    return response()->json(['error' => $e->getMessage()], 401);
                 }
 
                 $statusCode = method_exists($e, 'getCode') && !empty($e->getCode()) ? $e->getCode() : 500;
@@ -59,7 +59,7 @@ class Handler extends ExceptionHandler
                 $statusCode = !empty($e->status) ? $e->status : $statusCode;
                 $statusCode = $statusCode > 500 ? 500 : $statusCode;
 
-                return response()->json(['errors' => [$e->getMessage()]], $statusCode);
+                return response()->json(['error' => $e->getMessage()], $statusCode);
             }
         });
 
