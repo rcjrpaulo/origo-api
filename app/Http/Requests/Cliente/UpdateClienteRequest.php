@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Cliente;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateClienteRequest extends FormRequest
 {
@@ -26,7 +27,7 @@ class UpdateClienteRequest extends FormRequest
         return [
             'planos' => ['array'],
             'nome' => ['string'],
-            'email' => ['email'],
+            'email' => ['required', 'email', Rule::unique('clientes')->ignore($this->cliente->id)],
             'telefone' => ['string'],
             'estado' => ['string'],
             'cidade' => ['string'],
